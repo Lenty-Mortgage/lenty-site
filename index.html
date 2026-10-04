@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" data-default-palette="neutral" data-palette="neutral">
+<html lang="en" data-default-palette="light" data-palette="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Lenty Website v1.02 Neutral</title>
+<title>Lenty Website v1.03 Light</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
@@ -39,17 +39,13 @@
 @media (prefers-reduced-motion:reduce){.aur::before{animation:none}}
 .aur .muted,.aur .small.muted{color:var(--hero-muted)}
 .aur .eyebrow{color:var(--sand)}
-/* v1.02 palette switcher (proto bar): auto follows the system; these override it */
+/* palette switcher (proto bar): auto follows the system; these override it */
 :root[data-palette="light"]{ --bg:#F4F2EA; --surface:#FFFDF8; --surface-2:#EFECE3; --ink:#002C1F; --muted:#6A7069; --line:#E3DFD2;
   --primary:#002C1F; --on-primary:#EEE2C9; --accent:#2E6A50; --accent-soft:#E4EDE6; --wa:#1D7A4A; --tbc-bg:#FBF0D6; --tbc-ink:#9C5A00;
   --ok:#1D7A4A; --warn:#9C5A00; --hero-bg:#002C1F; --hero-ink:#EEE2C9; --hero-muted:rgba(238,226,201,.72); color-scheme:light }
-:root[data-palette="neutral"]{ --bg:#E6E7E1; --surface:#F3F3EF; --surface-2:#DADCD5; --ink:#1C2924; --muted:#58625C; --line:#C9CCC3;
-  --primary:#1E4034; --on-primary:#EEF0EA; --accent:#2E6A50; --accent-soft:#D2DED5; --wa:#1D7A4A; --tbc-bg:#F1E5C6; --tbc-ink:#845000;
-  --ok:#1D7A4A; --warn:#845000; --hero-bg:#2B3832; --hero-ink:#EEF0EA; --hero-muted:rgba(238,240,234,.74); color-scheme:light }
 :root[data-palette="dark"]{ --bg:#071A13; --surface:#0E261D; --surface-2:#153226; --ink:#EEE2C9; --muted:#A9B0A6; --line:#22392E;
   --primary:#EEE2C9; --on-primary:#002C1F; --accent:#8CC4A6; --accent-soft:#163A2B; --wa:#3DBA7A; --tbc-bg:#3A2A10; --tbc-ink:#F0C27A;
   --ok:#6FCB98; --warn:#F0C27A; --hero-bg:#0E3326; --hero-ink:#EEE2C9; --hero-muted:rgba(238,226,201,.72); color-scheme:dark }
-:root[data-palette="neutral"] .aur::before{opacity:.32;filter:blur(48px) saturate(.75)}
 .pal{display:inline-flex;gap:2px;background:rgba(238,226,201,.14);border-radius:999px;padding:2px}
 .pal button{font:600 .78rem var(--body);color:var(--cream);background:transparent;border:0;border-radius:999px;padding:4px 10px;cursor:pointer}
 .pal button[aria-pressed="true"]{background:var(--cream);color:var(--forest)}
@@ -279,7 +275,7 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
 </head>
 <body>
 
-<div class="proto"><div class="wrap"><span><b>Prototype v1.02</b> · Labels like <span class="tbc">to confirm</span> mark facts Lenty still has to approve. No form sends data.</span><span class="pal" role="group" aria-label="Colour palette"><button type="button" data-pal="auto">Auto</button><button type="button" data-pal="light">Light</button><button type="button" data-pal="neutral">Neutral</button><button type="button" data-pal="dark">Dark</button></span></div></div>
+<div class="proto"><div class="wrap"><span><b>Prototype v1.03</b> · Labels like <span class="tbc">to confirm</span> mark facts Lenty still has to approve. No form sends data.</span><span class="pal" role="group" aria-label="Colour palette"><button type="button" data-pal="auto">Auto</button><button type="button" data-pal="light">Light</button><button type="button" data-pal="dark">Dark</button></span></div></div>
 
 <header class="site">
   <div class="wrap">
@@ -871,14 +867,15 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
   }));
 
   /* ---------- palette switcher ---------- */
-  // A page can pin its palette with <html data-default-palette="…"> (used for the public light/neutral/dark links).
+  // A page can pin its palette with <html data-default-palette="…"> (used for the public light and dark links).
   const fixedPal=document.documentElement.dataset.defaultPalette;
   function setPal(v,save){
     if(v==='auto') document.documentElement.removeAttribute('data-palette'); else document.documentElement.setAttribute('data-palette',v);
     document.querySelectorAll('[data-pal]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pal===v)));
     if(save&&!fixedPal){try{localStorage.setItem('lenty-pal',v)}catch(e){}}
   }
-  let pal=fixedPal||'neutral'; if(!fixedPal){try{pal=localStorage.getItem('lenty-pal')||'neutral'}catch(e){}}
+  let pal=fixedPal||'auto'; if(!fixedPal){try{pal=localStorage.getItem('lenty-pal')||'auto'}catch(e){}}
+  if(pal!=='light'&&pal!=='dark') pal='auto';
   document.querySelectorAll('[data-pal]').forEach(b=>b.addEventListener('click',()=>setPal(b.dataset.pal,true)));
   setPal(pal);
 
