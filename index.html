@@ -1,25 +1,59 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-default-palette="neutral" data-palette="neutral">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<title>Lenty Prototype Light</title>
+<title>Lenty Website v1.02 Neutral</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Prata&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
 <style>
-/* Layout: one-column editorial site, cream paper + forest ink from the Lenty logo pack; sticky header, sticky mobile action bar; hash-routed views */
+/* v1.01 — palette aligned with the Lenty Partners app: stone ground, forest ink, sage accent, sand + cream highlights,
+   dark "hero" panels with the app's aurora gradient. Layout unchanged from v1.0. */
 :root{
-  --forest:#002C1F; --forest-2:#0B3D2C; --cream:#EFE3C7; --brass:#9A6B23;
-  --bg:#FAF6EC; --surface:#FFFFFF; --surface-2:#F3EBD7; --ink:#14231C; --muted:#56635B; --line:#DCD2BA;
-  --primary:#002C1F; --on-primary:#EFE3C7; --accent:#9A6B23; --wa:#1E7A4C; --tbc-bg:#FFF4D6; --tbc-ink:#7A5310;
-  --ok:#1E7A4C; --warn:#9A6B23;
+  --forest:#002C1F; --forest-2:#1E4034; --cream:#EEE2C9; --sand:#B79D84; --sage:#2E6A50;
+  --bg:#F4F2EA; --surface:#FFFDF8; --surface-2:#EFECE3; --ink:#002C1F; --muted:#6A7069; --line:#E3DFD2;
+  --primary:#002C1F; --on-primary:#EEE2C9; --accent:#2E6A50; --accent-soft:#E4EDE6; --wa:#1D7A4A; --tbc-bg:#FBF0D6; --tbc-ink:#9C5A00;
+  --ok:#1D7A4A; --warn:#9C5A00;
+  --hero-bg:#002C1F; --hero-ink:#EEE2C9; --hero-muted:rgba(238,226,201,.72);
+  --aurora:repeating-linear-gradient(100deg,#1e4034 10%,#3f7a5e 15%,#b79d84 20%,#efe2c8 25%,#2e6a50 30%);
   --display:"Prata", Georgia, "Times New Roman", serif;
-  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"JetBrains Mono", ui-monospace, Menlo, monospace;
-  --radius:14px; --maxw:1120px; color-scheme:light;
+  --radius:20px; --btn-radius:14px; --maxw:1120px;
 }
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#071A13; --surface:#0E261D; --surface-2:#153226; --ink:#EEE2C9; --muted:#A9B0A6; --line:#22392E;
+  --primary:#EEE2C9; --on-primary:#002C1F; --accent:#8CC4A6; --accent-soft:#163A2B; --wa:#3DBA7A; --tbc-bg:#3A2A10; --tbc-ink:#F0C27A;
+  --ok:#6FCB98; --warn:#F0C27A; --hero-bg:#0E3326; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#071A13; --surface:#0E261D; --surface-2:#153226; --ink:#EEE2C9; --muted:#A9B0A6; --line:#22392E;
+  --primary:#EEE2C9; --on-primary:#002C1F; --accent:#8CC4A6; --accent-soft:#163A2B; --wa:#3DBA7A; --tbc-bg:#3A2A10; --tbc-ink:#F0C27A;
+  --ok:#6FCB98; --warn:#F0C27A; --hero-bg:#0E3326; color-scheme:dark}
+
+/* aurora: the app's signature gradient, used only on dark hero panels */
+.aur{position:relative;overflow:hidden;isolation:isolate;background:var(--hero-bg);color:var(--hero-ink)}
+.aur::before{content:"";position:absolute;inset:-40%;z-index:-1;background-image:var(--aurora);background-size:300% 200%;filter:blur(40px);opacity:.45;animation:aur 24s linear infinite}
+@keyframes aur{from{background-position:0% 50%}to{background-position:300% 50%}}
+@media (prefers-reduced-motion:reduce){.aur::before{animation:none}}
+.aur .muted,.aur .small.muted{color:var(--hero-muted)}
+.aur .eyebrow{color:var(--sand)}
+/* v1.02 palette switcher (proto bar): auto follows the system; these override it */
+:root[data-palette="light"]{ --bg:#F4F2EA; --surface:#FFFDF8; --surface-2:#EFECE3; --ink:#002C1F; --muted:#6A7069; --line:#E3DFD2;
+  --primary:#002C1F; --on-primary:#EEE2C9; --accent:#2E6A50; --accent-soft:#E4EDE6; --wa:#1D7A4A; --tbc-bg:#FBF0D6; --tbc-ink:#9C5A00;
+  --ok:#1D7A4A; --warn:#9C5A00; --hero-bg:#002C1F; --hero-ink:#EEE2C9; --hero-muted:rgba(238,226,201,.72); color-scheme:light }
+:root[data-palette="neutral"]{ --bg:#E6E7E1; --surface:#F3F3EF; --surface-2:#DADCD5; --ink:#1C2924; --muted:#58625C; --line:#C9CCC3;
+  --primary:#1E4034; --on-primary:#EEF0EA; --accent:#2E6A50; --accent-soft:#D2DED5; --wa:#1D7A4A; --tbc-bg:#F1E5C6; --tbc-ink:#845000;
+  --ok:#1D7A4A; --warn:#845000; --hero-bg:#2B3832; --hero-ink:#EEF0EA; --hero-muted:rgba(238,240,234,.74); color-scheme:light }
+:root[data-palette="dark"]{ --bg:#071A13; --surface:#0E261D; --surface-2:#153226; --ink:#EEE2C9; --muted:#A9B0A6; --line:#22392E;
+  --primary:#EEE2C9; --on-primary:#002C1F; --accent:#8CC4A6; --accent-soft:#163A2B; --wa:#3DBA7A; --tbc-bg:#3A2A10; --tbc-ink:#F0C27A;
+  --ok:#6FCB98; --warn:#F0C27A; --hero-bg:#0E3326; --hero-ink:#EEE2C9; --hero-muted:rgba(238,226,201,.72); color-scheme:dark }
+:root[data-palette="neutral"] .aur::before{opacity:.32;filter:blur(48px) saturate(.75)}
+.pal{display:inline-flex;gap:2px;background:rgba(238,226,201,.14);border-radius:999px;padding:2px}
+.pal button{font:600 .78rem var(--body);color:var(--cream);background:transparent;border:0;border-radius:999px;padding:4px 10px;cursor:pointer}
+.pal button[aria-pressed="true"]{background:var(--cream);color:var(--forest)}
+
 
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;margin:0}
@@ -39,7 +73,7 @@ p{margin:0}
 .tbc{display:inline-block;font-family:var(--mono);font-size:.72em;letter-spacing:.02em;background:var(--tbc-bg);color:var(--tbc-ink);border:1px dashed var(--tbc-ink);border-radius:6px;padding:.05em .45em;vertical-align:.1em;white-space:nowrap}
 
 /* proto banner */
-.proto{background:var(--forest);color:#EFE3C7;font-size:.82rem}
+.proto{background:var(--forest);color:var(--cream);font-size:.82rem}
 .proto .wrap{display:flex;gap:12px;flex-wrap:wrap;justify-content:space-between;padding-block:7px}
 .proto b{font-weight:600}
 
@@ -55,7 +89,7 @@ nav.main a:hover{color:var(--ink)}
 @media (max-width:900px){nav.main{display:none}.hdr-cta .btn-ghost{display:none}.hdr-cta{margin-left:auto}}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .98rem/1 var(--body);padding:14px 20px;border-radius:999px;border:1.5px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s ease,background .15s ease}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 .98rem/1 var(--body);padding:14px 20px;border-radius:var(--btn-radius);border:1.5px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s ease,background .15s ease}
 .btn:hover{transform:translateY(-1px)}
 .btn-primary{background:var(--primary);color:var(--on-primary)}
 .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
@@ -78,7 +112,10 @@ section.block{padding-block:72px;border-bottom:1px solid var(--line)}
 .facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:28px;font-size:.9rem;color:var(--muted)}
 .facts span{display:flex;align-items:center;gap:8px}
 .facts span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
-.hero-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:grid;gap:14px;min-width:0}
+.hero-card{border-radius:var(--radius);padding:24px;display:grid;gap:14px;min-width:0;box-shadow:0 18px 40px rgba(0,44,31,.18)}
+.aur .mini-row{border-color:rgba(238,226,201,.22)}
+.aur .mini-total{background:rgba(238,226,201,.12)}
+.aur .btn-ghost{color:var(--hero-ink);border-color:rgba(238,226,201,.4)}
 .hero-card h3{font-size:1.15rem}
 .mini-row{display:flex;justify-content:space-between;gap:12px;padding-block:6px;border-bottom:1px dashed var(--line);font-size:.95rem}
 .mini-row:last-of-type{border-bottom:0}
@@ -110,9 +147,9 @@ input:focus,select:focus{border-color:var(--accent);outline:none}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 @media (max-width:480px){.two{grid-template-columns:1fr}}
 .check{display:flex;gap:10px;align-items:center;font-size:.92rem}
-.res-total{display:grid;gap:4px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.res-total{display:grid;gap:4px;padding:18px 20px;border-radius:14px;margin-bottom:14px}
 .res-total .big{font-family:var(--display);font-size:clamp(2rem,5vw,2.8rem);line-height:1.1}
-.res-total .pct{color:var(--muted)}
+.res-total .pct{color:var(--hero-muted)}
 table.lines{width:100%;border-collapse:collapse;font-size:.95rem}
 table.lines td{padding:8px 0;border-bottom:1px dashed var(--line);vertical-align:top}
 table.lines td:last-child{text-align:right;white-space:nowrap;padding-left:12px}
@@ -120,7 +157,7 @@ table.lines tr.sub td{font-weight:700;border-bottom:0;padding-top:12px}
 .note{font-size:.85rem;color:var(--muted);margin-top:14px;display:grid;gap:8px}
 .callout{background:var(--surface-2);border-radius:10px;padding:12px 14px;font-size:.9rem}
 .callout b{color:var(--ink)}
-.pill{display:inline-block;font-size:.78rem;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--surface-2)}
+.pill{display:inline-block;font-size:.78rem;font-weight:600;border-radius:999px;padding:3px 10px;background:var(--accent-soft)}
 .pill.ok{color:var(--ok)} .pill.warn{color:var(--warn)}
 .monthly{display:flex;justify-content:space-between;gap:12px;align-items:baseline;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
 .monthly b{font-family:var(--display);font-size:1.5rem;font-weight:400}
@@ -172,6 +209,8 @@ ol.timeline .t{font-family:var(--mono);font-size:.8rem;color:var(--accent);paddi
 @media (max-width:700px){.fees{grid-template-columns:1fr}}
 .fee{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;display:grid;gap:8px}
 .fee .price{font-family:var(--display);font-size:2rem}
+.fee:first-child{background:var(--accent-soft);border-color:transparent}
+.fee:first-child .price{color:var(--accent)}
 
 /* faq */
 .faq-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 40px}
@@ -185,10 +224,10 @@ details[open] summary::after{content:"–"}
 details p{margin-top:8px;color:var(--muted);font-size:.95rem;max-width:62ch}
 
 /* partners band */
-.band{background:var(--forest);color:#EFE3C7;border-radius:20px;padding:36px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:24px;align-items:center}
-.band .eyebrow{color:#D9A855}
-.band p{color:#D7CDB4}
-.band .btn-primary{background:#EFE3C7;color:#002C1F}
+.band{border-radius:var(--radius);padding:36px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:24px;align-items:center}
+.band .eyebrow{color:var(--sand)}
+.band p{color:var(--hero-muted)}
+.band .btn-primary{background:var(--cream);color:var(--forest)}
 @media (max-width:800px){.band{grid-template-columns:1fr;padding:26px}}
 
 /* footer */
@@ -237,8 +276,10 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
 [data-view]{display:none}
 [data-view].on{display:block}
 </style>
+</head>
+<body>
 
-<div class="proto"><div class="wrap"><span><b>Prototype v0.1</b> · content and numbers for review. Labels like <span class="tbc">to confirm</span> mark facts Lenty still has to approve.</span><span>No form on this page sends data.</span></div></div>
+<div class="proto"><div class="wrap"><span><b>Prototype v1.02</b> · Labels like <span class="tbc">to confirm</span> mark facts Lenty still has to approve. No form sends data.</span><span class="pal" role="group" aria-label="Colour palette"><button type="button" data-pal="auto">Auto</button><button type="button" data-pal="light">Light</button><button type="button" data-pal="neutral">Neutral</button><button type="button" data-pal="dark">Dark</button></span></div></div>
 
 <header class="site">
   <div class="wrap">
@@ -278,7 +319,7 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
           <span>English today · Arabic, Russian, French next</span>
         </div>
       </div>
-      <aside class="hero-card" aria-label="Example: cash needed">
+      <aside class="hero-card aur" aria-label="Example: cash needed">
         <p class="eyebrow">Example · AED 2,000,000 apartment</p>
         <h3>What most buyers don't hear until it's late</h3>
         <div class="mini-row"><span>Down payment (20%)</span><span class="num">400,000</span></div>
@@ -374,7 +415,7 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
         </form>
 
         <div class="panel" aria-live="polite">
-          <div class="res-total">
+          <div class="res-total aur">
             <span class="eyebrow">Cash you need on day one</span>
             <span class="big num" id="outTotal">–</span>
             <span class="pct num" id="outPct">–</span>
@@ -538,7 +579,7 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
 
   <section class="block">
     <div class="wrap">
-      <div class="band">
+      <div class="band aur">
         <div style="display:grid;gap:10px">
           <p class="eyebrow">For real-estate agents and developers</p>
           <h2>We only do mortgages. Your client stays your client.</h2>
@@ -641,7 +682,7 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
         <div class="step"><span class="when">Every milestone</span><h3>Status updates</h3><p>Pre-approval, valuation, final offer. You don't have to chase.</p></div>
         <div class="step"><span class="when">On completion</span><h3>Your commission</h3><p>Paid after the mortgage is disbursed. <span class="tbc">rate</span></p></div>
       </div>
-      <div class="band">
+      <div class="band aur">
         <div style="display:grid;gap:10px">
           <p class="eyebrow">Coming soon</p>
           <h2>Lenty Partners App</h2>
@@ -829,6 +870,21 @@ footer.site{padding-block:48px 120px;font-size:.9rem;color:var(--muted)}
     try{ navigator.clipboard.writeText(t).then(done,()=>{}); }catch(e){}
   }));
 
+  /* ---------- palette switcher ---------- */
+  // A page can pin its palette with <html data-default-palette="…"> (used for the public light/neutral/dark links).
+  const fixedPal=document.documentElement.dataset.defaultPalette;
+  function setPal(v,save){
+    if(v==='auto') document.documentElement.removeAttribute('data-palette'); else document.documentElement.setAttribute('data-palette',v);
+    document.querySelectorAll('[data-pal]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pal===v)));
+    if(save&&!fixedPal){try{localStorage.setItem('lenty-pal',v)}catch(e){}}
+  }
+  let pal=fixedPal||'neutral'; if(!fixedPal){try{pal=localStorage.getItem('lenty-pal')||'neutral'}catch(e){}}
+  document.querySelectorAll('[data-pal]').forEach(b=>b.addEventListener('click',()=>setPal(b.dataset.pal,true)));
+  setPal(pal);
+
   route();
 })();
 </script>
+
+</body>
+</html>
